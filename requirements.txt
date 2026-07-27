@@ -1,0 +1,16 @@
+# Core runtime. Install inside your Linux CUDA venv.
+#
+# IMPORTANT: install a CUDA build of torch BEFORE this file, or whisper falls back to CPU
+# (5-10x slower, and Triton DTW word-timestamps need the GPU build). Example:
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
+# Then:
+#   pip install -r requirements.txt
+#
+# ffmpeg + ffprobe must be on PATH (system packages, not pip).
+
+regex>=2023.0.0
+stable-ts>=2.17.0
+openai-whisper>=20231117
+
+# dev/test
+pytest>=8.0.0

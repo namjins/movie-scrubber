@@ -1,0 +1,52 @@
+# Vendored from universal_game_editor/wordlists/shared/polytheistic-context-rules.txt @ 2026-07-27.
+# Opt-in bundle — pass extra_shared=[context_filter.POLYTHEISTIC_CONTEXT_RULES] to
+# load_merged_context_rules() for a fantasy/mythology title (Lord of the Rings, a Norse/Greek-myth
+# film, etc.) where "god/gods/hell(s)" are setting nouns, not real-world blasphemy. Inert unless a
+# caller opts in — scrub/wordlists.py does not pass extra_shared by default, so this file changes
+# nothing until wired up. See D:\repos\universal_game_editor\logs\movie-scrubber-audit-2026-07-27.md.
+#
+# Polytheistic exemption bundle — OPT-IN per title (religious posture = `polytheistic`).
+#
+# For deity-lore worlds (Baldur's Gate 3, Assassin's Creed Odyssey, God of War) where "god / gods /
+# hell(s)" are SETTING NOUNS (pantheons, planes, titles), not real-world blasphemy. Merged ON TOP of
+# the always-on shared religious baseline (wordlists/religious-context-rules.txt) ONLY when opted in.
+#
+# POSTURE (per knowledge/_pipeline/religious-terms-policy.md in universal_game_editor):
+#   * Exempt deity TITLES / pantheon / plane references (lore).
+#   * Do NOT exempt: real-world exclamations ("oh my god(s)"), curses ("god damn", "gods damn you"),
+#     or the vain oaths ("for the gods' sake") — a curse is censorable even when in-world.
+#   * jesus / christ get NO rules here — no in-world Christianity, so any occurrence is a real-world
+#     exclamation that leaked into localization and MUST stay censored.
+#   * A title's unique proper nouns (Selûne, Baator, Zeus, Olympus, Midgard) would come from a
+#     per-title gazetteer — not vendored here (see context_filter.py header note).
+# Guilty-until-tight: every rule is a deity/pantheon/plane reference that cannot match a vain use.
+
+# --- plural "gods" as a pantheon / setting noun --------------------------------
+gods	\bby\s+the\s+gods\b
+gods	\bye\s+gods\b
+gods	\bthe\s+gods\s+(are|were|have|had|will|would|be|themselves|above|below|of|smile|frown|favou?r|demand|decree|watch|know|help|save|forbid|willing)\b
+gods	\bgods\s+(above|below|of\s+old|of\s+the\s+\w+|willing|be\s+(praised|thanked|good)|themselves)\b
+gods	\bpraise\s+the\s+gods\b
+gods	\bthank\s+the\s+gods\b
+gods	\bpray(ed|ing|s)?\s+to\s+the\s+gods\b
+gods	\bworship\s+(of\s+)?the\s+gods\b
+gods	\b(old|new|elder|forgotten|dead|ancient|young|sleeping|dark|blood|nine|many)\s+gods\b
+gods	\bgods'\s+(names?|will|mercy|blessings?|chosen|champions?|realm|domain)\b
+gods	\bchosen\s+of\s+the\s+gods\b
+gods	\brealm\s+of\s+the\s+gods\b
+
+# --- singular "god" title beyond the base "god of X" ---------------------------
+god	\bgod\s+of\s+(this|that|these|those|all|war|death|magic|the\s+\w+)\b
+god	\bthe\s+god\s+(of|who|whom|that|whose|king|emperor|queen)\b
+god	\ba\s+(young|dead|dark|blood|sleeping|forgotten|lesser|greater|minor|elder)\s+god\b
+god	\bgod(hood|ly|like|dess|desses)\b
+god	\bhalf[\s\-]?god\b
+
+# --- "hell(s)" as a named plane / cosmology (fantasy) --------------------------
+hell	\bthe\s+hells\b
+hells	\bthe\s+hells\b
+hells	\bseven\s+hells\b
+hell	\bseven\s+hells\b
+hells	\bgods\s+of\s+the\s+hells\b
+hell	\bplane\s+of\s+hell\b
+hells	\bplanes?\s+of\s+the\s+hells\b
