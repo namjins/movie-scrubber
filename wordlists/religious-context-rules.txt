@@ -1,0 +1,206 @@
+# Vendored from universal_game_editor/wordlists/shared/religious-context-rules.txt @ 2026-07-27
+# (re-vendor of the 2026-06-11 baseline; picks up the 2026-07-02 corpus-accuracy pass fixes —
+# "Jesus wept!"/"in Christ's name"/"Lord Jesus!" no longer wrongly exempted — plus §8 corpus-driven
+# respectful exemptions and §9 lord/holy per-game opt-in rules). Do not edit here; re-sync from
+# upstream if the shared file changes. See D:\repos\universal_game_editor\logs\movie-scrubber-audit-2026-07-27.md.
+#
+# Shared religious-term context exemptions — God / Lord / Jesus / Christ / hell / damn & derivatives.
+#
+# Canonical, GAME-AGNOSTIC baseline. Every game inherits this when it runs with
+# `--context-rules` (the loader merges this file with the per-game delta file, if any).
+# Policy + rationale: knowledge/_pipeline/religious-terms-policy.md
+# Source spec:        knowledge/_pipeline/religious-terms-classifier-spec.md
+#
+# POSTURE — moderate, blasphemy in-scope (see [[feedback-blasphemy-in-scope]]):
+#   * DEFAULT is censor. These rules only EXEMPT a hit when a HIGH-PRECISION pattern
+#     proves a legitimate use (proper name, deity title, scripture/quote, clear worship
+#     reference, or the word discussed educationally).
+#   * We deliberately do NOT exempt the ambiguous "vain use" idioms — "oh my god",
+#     "jesus christ!", "what the hell", "damn good", "for god's sake", "I swear to god",
+#     "thank god", "god knows" — those stay censored (that IS the profanity filter's job).
+#   * When in doubt, a pattern is LEFT OUT: a missed exemption costs one false-positive
+#     mute (a real religious line muted); a too-broad pattern LEAKS profanity in EVERY
+#     game that inherits this file. We err toward the former.
+#
+# FORMAT:  <token><TAB><context-regex>   (regex lib, case-insensitive, matched against the
+#          hit's context — the parent Whisper segment for audio, the full string for text).
+#          Multiple rules per token are OR'd. `#` comments + blank lines ignored.
+#
+# EXTEND PER GAME: add game-specific lore exemptions in wordlists/per-game/<slug>/context-rules.txt
+#          (e.g. a game's unique deity/place names). That file is MERGED on top of this one.
+
+# ============================================================================
+# 1. Proper names / titles (universal — films, places, bands, musicals)
+# ============================================================================
+god	\bgodfather\b
+god	\bgodzilla\b
+god	\bgodsmack\b
+god	\bgod['’]?s?\s+not\s+dead\b
+hell	\bhell['’]?s\s+kitchen\b
+hells	\bhell['’]?s\s+kitchen\b
+hell	\bhellboy\b
+hell	\bhell,\s+michigan\b
+damn	\bdamn\s+yankees\b
+jesus	\bjesus\s+christ\s+superstar\b
+christ	\bjesus\s+christ\s+superstar\b
+
+# ============================================================================
+# 2. Deity titles / epithets (fantasy + mythology — "God of X", "the <Adj> God")
+#    A named deity is a setting noun, not a vain exclamation.
+# ============================================================================
+god	\bgod\s+of\s+(the\s+|a\s+)?\w+
+gods	\bgods?\s+of\s+(the\s+|old|war|death|magic|light|nature)\b
+god	\bthe\s+\w+\s+god\b
+gods	\bthe\s+(old|new|elder|forgotten|dead|ancient)\s+gods\b
+god	\bsun[\s\-]?god\b
+god	\bwar[\s\-]?god\b
+god	\bgod[\s\-]?(king|queen|emperor)\b
+gods	\bgods\s+of\s+old\b
+god	\bold\s+god\b
+
+# ============================================================================
+# 3. Scripture / liturgy / quotation markers (clearly a religious quote)
+# ============================================================================
+god	\bword\s+of\s+god\b
+god	\bkingdom\s+of\s+god\b
+god	\bhouse\s+of\s+god\b
+god	\bson\s+of\s+god\b
+god	\bchild(ren)?\s+of\s+god\b
+god	\bman\s+of\s+god\b
+god	\bgrace\s+of\s+god\b
+god	\bgift\s+of\s+god\b
+god	\bgod\s+so\s+loved\s+the\s+world\b
+god	\bglory\s+(be\s+)?to\s+god\b
+god	\bthanks\s+be\s+to\s+god\b
+jesus	\bin\s+jesus['’]?\s*(christ['’]?s?\s+)?name\b
+# (removed 2026-06-14: bare "Lord Jesus!" is vain -> censor; "Lord Jesus Christ our Lord" stays exempt via the jesus our/the lord rule)
+jesus	\bjesus\s+of\s+nazareth\b
+# (tightened 2026-07-02, corpus harness: dropped bare "wept" — "Jesus wept!" is a common vain
+#  exclamation; narrowed "died for" to a redemptive object so "Jesus died for this?" mockery censors)
+jesus	\bjesus\s+(saves|said|taught|preached|rose\s+(again|from)|died\s+for\s+(our|your|us|the\s+world|sinners|humanity|mankind|you|me|it\s+all))\b
+jesus	\bjesus\s+(christ\s+)?(our|the)\s+(lord|savior|saviour|king|son)\b
+christ	\bbody\s+of\s+christ\b
+# (tightened 2026-06-14: censor vain "in Christ's name"; "faith in Christ" stays exempt)
+christ	\bin\s+christ\b(?!['’]?s?\s+name)
+christ	\bchrist\s+is\s+(risen|lord|king)\b
+christ	\b(lord\s+)?jesus\s+christ\s+(our|the)\s+(lord|savior|saviour|king)\b
+christ	\bchrist\s+(died|rose|the\s+lord|the\s+king|the\s+savior|the\s+saviour)\b
+lord	\blord\s+have\s+mercy\b
+lord	\bour\s+lord\b
+lord	\blord\s+jesus\b
+lord	\bpraise\s+the\s+lord\b
+lord	\bword\s+of\s+the\s+lord\b
+lord	\blord['’]?s\s+prayer\b
+
+# ============================================================================
+# 4. Clear worship / religious-reference verbs (the term is the object of worship)
+# ============================================================================
+god	\bpray(ed|ing|s)?\s+to\s+god\b
+god	\bworship\s+(of\s+)?god\b
+god	\bpraise\s+(be\s+)?(to\s+)?god\b
+god	\bbelieve\s+in\s+god\b
+god	\bfaith\s+in\s+god\b
+god	\bgod\s+bless\s+(you|us|them|him|her|america|this)\b
+god	\btrust\s+in\s+god\b
+lord	\bpray(ed|ing|s)?\s+to\s+the\s+lord\b
+lord	\bworship\s+the\s+lord\b
+
+# ============================================================================
+# 5. Theology / cosmology "hell" as a named place or doctrine (NOT "go to hell")
+# ============================================================================
+hell	\bnine\s+hells?\b
+hells	\bnine\s+hells?\b
+hell	\bthe\s+(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)\s+hell\b
+hells	\bthe\s+(first|second|third|fourth|fifth|sixth|seventh|eighth|ninth)\s+hells\b
+hells	\bhells\s+of\s+\w+\b
+hell	\bharrowing\s+of\s+hell\b
+hell	\bheaven\s+(and|or)\s+hell\b
+hell	\bhell\s+is\s+(a\s+)?(real|eternal|a\s+place|a\s+doctrine|a\s+concept)\b
+
+# ============================================================================
+# 6. Theology "damnation" / "the damned souls" (NOT "damn it" / "damn good")
+# ============================================================================
+damn	\beternal\s+damnation\b
+damned	\bsouls?\s+of\s+the\s+damned\b
+damned	\bdamned\s+souls?\b
+damnation	\beternal\s+damnation\b
+
+# ============================================================================
+# 7. Educational / linguistic (the word DISCUSSED, not used)
+# ============================================================================
+damn	\bthe\s+word\s+["“]?damn\b
+hell	\bthe\s+word\s+["“]?hell\b
+god	\bthe\s+word\s+["“]?god\b
+
+# ============================================================================
+# 8. Corpus-driven additions (2026-07-02, from religious-terms-corpus.md).
+#    Each is proven by a respectful_* row AND verified not to leak any vain_* row by
+#    tests/test_religious_corpus.py. Guilty-until-tight: narrow to a reverent verb/object.
+#    Deliberately NOT added (stay censored per religious-terms-policy.md): the vain idioms
+#    "thank God", "God knows", "for God's sake", "I swear to God" — the harness marks those
+#    respectful-labeled rows EXPECTED-CENSOR.
+# ============================================================================
+
+# Worship / confession declarations (the term is the object of worship)
+god	\bgod\s+is\s+(good|great|faithful|just|holy|love|gracious|merciful|able|worthy|with\s+us|my\s+(refuge|strength|shepherd|rock))\b
+god	\bto\s+god\s+be\s+the\s+glory\b
+god	\bworship(s|ped|ping)?\s+god\b
+jesus	\bworship(s|ped|ping)?\s+jesus\b
+jesus	\bjesus\s+christ\s+is\s+(lord|risen|king|god)\b
+
+# Thanksgiving / testimony (reverent verb, deity as subject/object)
+god	\bgod\s+(gave|gives|has\s+given|helped|has\s+helped|answered|has\s+answered|healed|saved|led|guided|taught|has\s+taught|used|created|made|provided|has\s+provided|sustained|convicted|comfort(ed|s)?|is\s+calling|calls?|deserves)\b
+god	\bgod\s+has\s+been\s+(gracious|good|faithful|merciful|kind)\b
+god	\bgrateful\s+to\s+god\b
+god	\bgive\s+god\s+thanks\b
+jesus	\bjesus\s+(changed|is\s+my\s+(hope|savior|saviour|lord|shepherd|rock|refuge|strength|salvation|redeemer|light|king|god)|is\s+the\s+son|calls?|gives?|taught|teaches|says|said|preached)\b
+jesus	\bjesus'?\s+(death|resurrection|teaching|ministry|birth|crucifixion)\b
+christ	\bchrist\s+is\s+(the\s+foundation|risen|lord|king|my\s+(savior|saviour|lord|hope|rock|king|redeemer|salvation|foundation|refuge|strength)|our\s+(lord|savior|saviour|king|hope|redeemer|salvation))\b
+
+# Blessing / benediction
+god	\b(may\s+)?god\s+(be\s+with|comfort|grant|bless|strengthen|guide|protect|keep|have\s+mercy\s+on)\s+(you|us|them|him|her|your|our|everyone|this)\b
+god	\bgod\s+bless\s+(you|us|them|him|her|america|this|your|our|everyone|the)\b
+jesus	\b(may\s+)?jesus\s+(give|bless|comfort|grant|guide|protect)\s+(you|us|them|him|her)\b
+christ	\b(peace|grace)\s+of\s+christ\b
+christ	\bchrist'?s\s+peace\b
+
+# Scripture / teaching / catechesis / liturgy
+god	\bgod\s+created\b
+god	\bgod'?s\s+(covenant|grace|word|will|plan|law|commandment)\b
+god	\b(encountered|met|calling\s+on|invoked)\s+god\b
+god	\bpraying\s+(that\s+)?god\b
+god	\bname\s+of\s+the\s+lord\s+your\s+god\b
+god	\bgod\s+in\s+vain\b
+god	\blamb\s+of\s+god\b
+god	\blord\s+god\s+almighty\b
+jesus	\bchristians\s+believe\b
+jesus	\bjesus\s+is\s+the\s+son\s+of\s+god\b
+jesus	\b(use|using|say|saying|invoke|invoking)\s+jesus'?\s+name\b
+jesus	\bin\s+the\s+name\s+of\s+jesus\s+christ\b
+christ	\bin\s+the\s+name\s+of\s+jesus\s+christ\b
+jesus	\bgrace\s+of\s+(our\s+)?lord\s+jesus\s+christ\b
+christ	\bgrace\s+of\s+(our\s+)?lord\s+jesus\s+christ\b
+christ	\bchrist\s+have\s+mercy\b
+
+# ============================================================================
+# 9. lord / holy — PER-GAME OPT-IN reverent exemptions (religious-terms-policy.md § lord/holy).
+#    `lord` and `holy` are NOT in wordlists/default.txt, so a game only censors them by adding the
+#    token to wordlists/per-game/<slug>/add.txt (the opt-in). These rules are inert until then
+#    (no token = no hit = the rule never fires), so they ship in the always-on shared file safely
+#    and activate automatically when opted in — the game gets reverent exemptions for free while
+#    "oh Lord!" / "good Lord!" / "Lord almighty!" / "Holy God!" / "holy hell" stay censored.
+# ============================================================================
+# lord as a divine title / worship object (NOT the bare vain "Lord!" / "good Lord")
+lord	\bthe\s+lord\s+(is|reigns|bless|keep|will|has|god|almighty\s+god|be\s+with)\b
+lord	\blord\s+god\b
+lord	\bblessed\s+be\s+(the\s+name\s+of\s+)?the\s+lord\b
+lord	\btrust\s+in\s+the\s+lord\b
+lord	\bfear\s+of\s+the\s+lord\b
+lord	\bhouse\s+of\s+the\s+lord\b
+lord	\bday\s+of\s+the\s+lord\b
+lord	\bin\s+the\s+lord\b
+lord	\blord\s+of\s+(hosts|lords|all|heaven)\b
+# holy as sacred title / object (NOT "holy god!" / "holy hell" / "holy cow/shit/crap" euphemisms)
+holy	\bholy\s+(spirit|ghost|bible|scriptures?|trinity|communion|eucharist|water|land|week|day|days|father|see|orders|matrimony|sacrament|gospel|cross|name)\b
+holy	\bthe\s+holy\s+one\b
+holy	\bmost\s+holy\b

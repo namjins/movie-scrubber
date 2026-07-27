@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "movie-scrubber"
+version = "0.1.0"
+description = "Automated profanity muting for movie .flac audio + .srt subtitles"
+requires-python = ">=3.10"
+dependencies = [
+    "regex>=2023.0.0",
+    "stable-ts>=2.17.0",
+    "openai-whisper>=20231117",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0.0"]
+
+[project.scripts]
+scrub = "scrub.cli:main"
+
+[tool.setuptools]
+packages = ["scrub", "scrub.vendored"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
