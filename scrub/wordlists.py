@@ -10,7 +10,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
-from .config import DEFAULT_CONTEXT_RULES, DEFAULT_WORDLIST
+from .config import DEFAULT_CONTEXT_RULES, DEFAULT_LOCAL_CONTEXT_RULES, DEFAULT_WORDLIST
 from .vendored.context_filter import build_permit, load_merged_context_rules
 from .vendored.wordlist_match import build_pattern, load_wordlist
 
@@ -27,6 +27,7 @@ def load_censor(
     wordlist: Path = DEFAULT_WORDLIST,
     context_rules: Path | None = DEFAULT_CONTEXT_RULES,
     use_context_rules: bool = True,
+    local_context_rules: Path | None = DEFAULT_LOCAL_CONTEXT_RULES,
 ) -> Censor:
     if not Path(wordlist).exists():
         raise FileNotFoundError(f"Wordlist not found: {wordlist}")
@@ -38,8 +39,14 @@ def load_censor(
     rules: dict = {}
     if use_context_rules:
         shared = Path(context_rules) if context_rules else DEFAULT_CONTEXT_RULES
-        # include_shared loads the shared file at shared_path; we keep per_game_path=None.
-        rules = load_merged_context_rules(per_game_path=None, include_shared=True, shared_path=shared)
+        # `local_context_rules` is a movie-scrubber-specific delta merged on top of the shared
+        # baseline (mirrors UGE's shared + per-game-delta pattern) -- optional, so a missing
+        # file is treated as "no local exemptions" rather than the fail-loud ValueError
+        # load_merged_context_rules raises for an explicitly-requested-but-absent per_game_path.
+        local = Path(local_context_rules) if local_context_rules else None
+        per_game_path = local if local and local.exists() else None
+        rules = load_merged_context_rules(per_game_path=per_game_path, include_shared=True,
+                                          shared_path=shared)
     permit = build_permit(rules)
     n_rules = sum(len(v) for v in rules.values())
     return Censor(swears_set=swears_set, pattern=pattern, permit=permit, n_rules=n_rules)

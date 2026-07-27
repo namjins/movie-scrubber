@@ -82,3 +82,30 @@ def test_polytheistic_bundle_available_as_opt_in():
     default_rules = load_merged_context_rules(per_game_path=None, include_shared=True,
                                                shared_path=DEFAULT_CONTEXT_RULES)
     assert is_context_permitted("gods", "by the gods, look at that", default_rules) is None
+
+
+# --- Local delta (wordlists/local-context-rules.txt, 2026-07-27): movie-scrubber-specific
+# exemptions merged on top of the shared baseline, auto-loaded by load_censor() by default.
+
+def test_hellfire_variants_exempt_via_local_delta():
+    censor = load_censor()
+    assert censor.permit("hell", "hellfire") is True         # never a hit in the first place,
+                                                               # but the permit call itself is safe
+    assert censor.permit("hell", "hell-fire") is True
+    assert censor.permit("hell", "hell fire") is True
+
+
+def test_bare_hell_still_censored():
+    censor = load_censor()
+    assert censor.permit("hell", "go to hell") is False
+    assert censor.permit("hell", "what the hell is that") is False
+
+
+def test_local_delta_absent_does_not_break_load_censor(tmp_path):
+    """load_censor() must not fail-loud when local_context_rules points at a missing file
+    (mirrors the optional-file contract in config.py's DEFAULT_LOCAL_CONTEXT_RULES docstring)."""
+    from scrub.config import DEFAULT_CONTEXT_RULES, DEFAULT_WORDLIST
+    censor = load_censor(DEFAULT_WORDLIST, DEFAULT_CONTEXT_RULES, True,
+                         local_context_rules=tmp_path / "does-not-exist.txt")
+    assert censor.n_rules > 0                     # shared baseline still loaded
+    assert censor.permit("hell", "hell fire") is False   # the local exemption is NOT applied

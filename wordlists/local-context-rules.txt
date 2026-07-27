@@ -1,0 +1,15 @@
+# Local context-rule delta for movie-scrubber -- exemptions specific to this project that
+# aren't part of the universal_game_editor shared baseline (religious-context-rules.txt).
+# Merged ON TOP of that file (mirrors UGE's shared-baseline + per-game-delta pattern), so
+# these survive untouched when the shared file gets re-vendored from upstream. Same
+# <token>\t<context-regex> format. Optional: scrub/wordlists.py skips this file if absent.
+
+# "hellfire" / "hell-fire" / "hell fire" -- common idiom ("hellfire and brimstone") and
+# proper-noun usage (e.g. a Hellfire missile), not a vain "hell" exclamation. Matches all
+# three spacing variants. CAVEAT (verified 2026-07-27, applies to every rule in this engine,
+# not just this one): the exemption check matches against the WHOLE line/segment text, not
+# the specific occurrence, so a bare vain "hell" sharing a line/cue with a "hell fire" mention
+# rides along and gets wrongly exempted too (e.g. "hell fire, go to hell" exempts BOTH hits).
+# Narrow in practice (both phrases would need to land in the same subtitle cue or Whisper
+# segment) but a real false-negative risk, not a hypothetical one.
+hell	\bhell[\s\-]?fire\b

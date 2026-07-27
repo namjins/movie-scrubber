@@ -11,6 +11,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 WORDLISTS_DIR = REPO_ROOT / "wordlists"
 DEFAULT_WORDLIST = WORDLISTS_DIR / "default.txt"
 DEFAULT_CONTEXT_RULES = WORDLISTS_DIR / "religious-context-rules.txt"
+# Movie-scrubber-local exemption delta, merged ON TOP of DEFAULT_CONTEXT_RULES (mirrors UGE's
+# shared-baseline + per-game-delta pattern). This is the home for exemptions specific to this
+# project that aren't part of the upstream shared file, so they survive a future re-vendor of
+# DEFAULT_CONTEXT_RULES untouched (that file is marked "do not edit, re-sync from upstream").
+# Optional: silently skipped if the file doesn't exist.
+DEFAULT_LOCAL_CONTEXT_RULES = WORDLISTS_DIR / "local-context-rules.txt"
 
 # RAW Whisper transcripts, keyed by (model, sha256(flac)). Cache RAW, never derived
 # (so a wordlist change re-derives correctly — UGE cache invariant).
@@ -58,6 +64,7 @@ MAX_WORD_DURATION_S = 3.0
 __all__ = [
     "PAD_PRE_S", "PAD_POST_S", "WHISPER_INITIAL_PROMPT",
     "REPO_ROOT", "WORDLISTS_DIR", "DEFAULT_WORDLIST", "DEFAULT_CONTEXT_RULES",
+    "DEFAULT_LOCAL_CONTEXT_RULES",
     "CACHE_DIR", "BACKUPS_DIR", "DEFAULT_MODELS", "WORKERS_BY_MODEL",
     "DEFAULT_OUTPUT_DIRNAME", "MAX_WORD_DURATION_S",
 ]
