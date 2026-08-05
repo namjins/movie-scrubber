@@ -71,6 +71,29 @@ def test_wordlist_re_vendored_compound_entries_present():
         assert w in censor.swears_set
 
 
+def test_load_censor_extra_shared_wires_polytheistic_bundle():
+    """load_censor(extra_shared=[...]) -- the plumbing scrub/cli.py's --polytheistic flag
+    uses -- opts in the bundle; the default call (no extra_shared) must not.
+
+    Goes through find_hits(), not censor.permit() directly, and uses a phrase built on
+    "hells" -- NOT "gods" -- because "gods" (plural) is not in wordlists/default.txt in this
+    repo (only singular "god" is), so find_hits() can never emit a "gods" hit here and a test
+    built on it would pass without ever exercising the real pipeline. "hells" IS a wordlist
+    entry, and the bundle's "hells -> the hells" rule genuinely changes its outcome."""
+    from scrub.vendored.wordlist_match import find_hits
+
+    phrase = "go to the hells and back"
+    poly_censor = load_censor(extra_shared=[POLYTHEISTIC_CONTEXT_RULES])
+    hits = find_hits(phrase, poly_censor.pattern)
+    assert [m for _s, _e, m in hits] == ["hells"]
+    assert poly_censor.permit("hells", phrase) is True
+
+    default_censor = load_censor()
+    default_hits = find_hits(phrase, default_censor.pattern)
+    assert [m for _s, _e, m in default_hits] == ["hells"]
+    assert default_censor.permit("hells", phrase) is False
+
+
 def test_polytheistic_bundle_available_as_opt_in():
     """Not wired in by default (extra_shared=[] unless a caller opts in), but loadable."""
     assert POLYTHEISTIC_CONTEXT_RULES.exists()
@@ -99,6 +122,43 @@ def test_bare_hell_still_censored():
     censor = load_censor()
     assert censor.permit("hell", "go to hell") is False
     assert censor.permit("hell", "what the hell is that") is False
+
+
+def test_scripture_quote_exempt_via_local_delta():
+    """Corpus-driven (2026-08-05, Stranger Things S01E05 Pastor Charles eulogy): a
+    verbatim Isaiah 41:10 paraphrase and its follow-on sermon line must be exempted,
+    not censored."""
+    censor = load_censor()
+    assert censor.permit("god", "Be not dismayed, for I am your God.") is True
+    assert censor.permit("god", "It would be easy to turn away from God...") is True
+
+
+def test_scripture_quote_delta_does_not_leak_vain_god():
+    """The new patterns are tight -- they must not fire on ordinary vain uses."""
+    censor = load_censor()
+    assert censor.permit("god", "oh my God") is False
+    assert censor.permit("god", "God, this is annoying") is False
+    assert censor.permit("god", "I swear to God") is False
+
+
+def test_god_complex_idiom_exempt_but_bare_god_still_censored():
+    """Corpus-driven (2026-08-05): "god complex" is a secular idiom (S05E07/S05E08), never a
+    vain exclamation -- exempt it, but don't let the pattern over-match a plain "God" nearby."""
+    censor = load_censor()
+    assert censor.permit("god", "A psychopath with a serious god complex, but...") is True
+    assert censor.permit("god", "That bitch has a God complex.") is True
+    assert censor.permit("god", "oh my God, what a complex situation") is False
+
+
+def test_god_has_a_plan_exempt_by_operator_override():
+    """Operator-directed exemption (2026-08-05): "I know God has a plan…" (S04E05 #616) is a
+    testimony/faith idiom -- exempt, per an explicit operator override of the initial
+    ambiguous-delivery call. Ordinary vain uses of "God" must still censor."""
+    censor = load_censor()
+    assert censor.permit("god", "I know God has a plan…") is True
+    assert censor.permit("god", "God has a plan for all of us.") is True
+    assert censor.permit("god", "oh my God") is False
+    assert censor.permit("god", "God, this is annoying") is False
 
 
 def test_local_delta_absent_does_not_break_load_censor(tmp_path):

@@ -2,6 +2,7 @@
 whole-clip promotion, pad-aware clamp, context exemption, and cross-model union."""
 from scrub.config import PAD_POST_S, PAD_PRE_S
 from scrub.plan import derive_audio_plan
+from scrub.srt import parse_srt_cues
 from scrub.wordlists import load_censor
 
 CENSOR = load_censor()
@@ -62,3 +63,85 @@ def test_union_across_models_merges_overlap():
     plan = derive_audio_plan({"a": a, "b": b}, CENSOR, duration=2.0)
     assert len(plan.intervals) == 1
     assert plan.per_model_counts == {"a": 1, "b": 1}
+
+
+def _srt(blocks):
+    out = []
+    for i, (start, end, text) in enumerate(blocks, start=1):
+        out.append(f"{i}\n{start} --> {end}\n{text}\n")
+    return "\n".join(out)
+
+
+def test_subtitle_confirmed_adds_source_provenance():
+    raw = _raw([("alpha", 0.20, 0.50), ("damn", 0.80, 1.00), ("omega", 1.30, 1.60)])
+    cues = parse_srt_cues(_srt([("00:00:00,000", "00:00:02,000", "alpha damn omega")]))
+    plan = derive_audio_plan({"large-v3-turbo": raw}, CENSOR, duration=2.0,
+                             subtitle_cues=cues)
+    assert plan.source_counts()["subtitle-confirmed"] == 1
+    assert any(src.kind == "subtitle-confirmed" for w in plan.windows for src in w.sources)
+
+
+def test_subtitle_inferred_uses_bracketing_anchor_words():
+    cues = parse_srt_cues(_srt([
+        ("00:00:00,000", "00:00:02,000", "alpha bravo"),
+        ("00:00:03,000", "00:00:05,000", "charlie delta"),
+        ("00:00:06,000", "00:00:08,000", "echo foxtrot"),
+        ("00:00:09,000", "00:00:11,000", "alpha damn omega"),
+    ]))
+    raw = _raw([
+        ("alpha", 0.45, 0.55), ("bravo", 1.45, 1.55),
+        ("charlie", 3.45, 3.55), ("delta", 4.45, 4.55),
+        ("echo", 6.45, 6.55), ("foxtrot", 7.45, 7.55),
+        ("alpha", 9.35, 9.45), ("omega", 10.55, 10.65),
+    ])
+    plan = derive_audio_plan({"large-v3-turbo": raw}, CENSOR, duration=12.0,
+                             subtitle_cues=cues)
+    assert plan.alignment and plan.alignment.passed
+    assert plan.source_counts()["subtitle-inferred"] == 1
+    inferred = next(w for w in plan.windows if any(s.kind == "subtitle-inferred" for s in w.sources))
+    assert inferred.start < 10.30 < inferred.end
+
+
+def test_subtitle_fallback_is_report_only_by_default_and_apply_opt_in():
+    cues = parse_srt_cues(_srt([
+        ("00:00:00,000", "00:00:02,000", "alpha bravo"),
+        ("00:00:03,000", "00:00:05,000", "charlie delta"),
+        ("00:00:06,000", "00:00:08,000", "echo foxtrot"),
+        ("00:00:09,000", "00:00:11,000", "gamma omega"),
+        ("00:00:12,000", "00:00:14,000", "damn"),
+    ]))
+    raw = _raw([
+        ("alpha", 0.45, 0.55), ("bravo", 1.45, 1.55),
+        ("charlie", 3.45, 3.55), ("delta", 4.45, 4.55),
+        ("echo", 6.45, 6.55), ("foxtrot", 7.45, 7.55),
+        ("gamma", 9.45, 9.55), ("omega", 10.45, 10.55),
+    ])
+    report = derive_audio_plan({"large-v3-turbo": raw}, CENSOR, duration=15.0,
+                               subtitle_cues=cues)
+    assert report.alignment and report.alignment.passed
+    assert len(report.report_only) == 1
+    assert "subtitle-fallback" not in report.source_counts()
+
+    apply = derive_audio_plan({"large-v3-turbo": raw}, CENSOR, duration=15.0,
+                              subtitle_cues=cues, subtitle_fallbacks="apply")
+    assert apply.source_counts()["subtitle-fallback"] == 1
+
+
+def test_alignment_gate_fails_on_large_offset_error():
+    cues = parse_srt_cues(_srt([
+        ("00:00:00,000", "00:00:02,000", "alpha bravo"),
+        ("00:00:03,000", "00:00:05,000", "charlie delta"),
+        ("00:00:06,000", "00:00:08,000", "echo foxtrot"),
+        ("00:00:09,000", "00:00:11,000", "gamma omega"),
+        ("00:00:12,000", "00:00:14,000", "damn"),
+    ]))
+    raw = _raw([
+        ("alpha", 0.45, 0.55), ("bravo", 1.45, 1.55),
+        ("charlie", 8.45, 8.55), ("delta", 9.45, 9.55),
+        ("echo", 6.45, 6.55), ("foxtrot", 7.45, 7.55),
+        ("gamma", 14.45, 14.55), ("omega", 15.45, 15.55),
+    ])
+    plan = derive_audio_plan({"large-v3-turbo": raw}, CENSOR, duration=20.0,
+                             subtitle_cues=cues)
+    assert plan.alignment and not plan.alignment.passed
+    assert plan.report_only
