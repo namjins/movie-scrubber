@@ -1,0 +1,237 @@
+{"example_id": "vain_reaction_001", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Oh my God!\""}
+{"example_id": "vain_reaction_002", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Oh God!\""}
+{"example_id": "vain_reaction_003", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"My God!\""}
+{"example_id": "vain_reaction_004", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Good God!\""}
+{"example_id": "vain_reaction_005", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Dear God!\""}
+{"example_id": "vain_reaction_006", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"God!\""}
+{"example_id": "vain_reaction_007", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Jesus!\""}
+{"example_id": "vain_reaction_008", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Jesus Christ!\""}
+{"example_id": "vain_reaction_009", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Christ!\""}
+{"example_id": "vain_reaction_010", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Oh Christ!\""}
+{"example_id": "vain_reaction_011", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Lord!\""}
+{"example_id": "vain_reaction_012", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Good Lord!\""}
+{"example_id": "vain_reaction_013", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Sweet Jesus!\""}
+{"example_id": "vain_reaction_014", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Jesus, Mary, and Joseph!\""}
+{"example_id": "vain_reaction_015", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Holy God!\""}
+{"example_id": "vain_reaction_016", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Holy Lord!\""}
+{"example_id": "vain_reaction_017", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"God almighty!\""}
+{"example_id": "vain_reaction_018", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Lord almighty!\""}
+{"example_id": "vain_reaction_019", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Jesus H. Christ!\""}
+{"example_id": "vain_reaction_020", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Christ almighty!\""}
+{"example_id": "vain_reaction_021", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Jesus wept!\""}
+{"example_id": "vain_reaction_022", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"God in heaven!\""}
+{"example_id": "vain_reaction_023", "classification": "potentially_vain_use", "category": "shock_surprise_reaction", "phrase": "\"Lord in heaven!\""}
+{"example_id": "vain_anger_001", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"God, this is annoying.\""}
+{"example_id": "vain_anger_002", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"God, I hate this.\""}
+{"example_id": "vain_anger_003", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"God, shut up.\""}
+{"example_id": "vain_anger_004", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"God, what is wrong with you?\""}
+{"example_id": "vain_anger_005", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Jesus, calm down.\""}
+{"example_id": "vain_anger_006", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Jesus, you're loud.\""}
+{"example_id": "vain_anger_007", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Christ, that hurt.\""}
+{"example_id": "vain_anger_008", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Oh God, not again.\""}
+{"example_id": "vain_anger_009", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"For God's sake, hurry up.\""}
+{"example_id": "vain_anger_010", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"For Christ's sake, stop.\""}
+{"example_id": "vain_anger_011", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"For the love of God, listen.\""}
+{"example_id": "vain_anger_012", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"For the love of Christ, be quiet.\""}
+{"example_id": "vain_anger_013", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"God help me, I'm done with this.\""}
+{"example_id": "vain_anger_014", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Lord help me with these people.\""}
+{"example_id": "vain_anger_015", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Jesus, what a mess.\""}
+{"example_id": "vain_anger_016", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Christ, this is stupid.\""}
+{"example_id": "vain_anger_017", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"God, you're impossible.\""}
+{"example_id": "vain_anger_018", "classification": "potentially_vain_use", "category": "anger_frustration_irritation", "phrase": "\"Good Lord, get over it.\""}
+{"example_id": "vain_curse_001", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"God damn it.\""}
+{"example_id": "vain_curse_002", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"Goddamn it.\""}
+{"example_id": "vain_curse_003", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"God damn you.\""}
+{"example_id": "vain_curse_004", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"Goddamn you.\""}
+{"example_id": "vain_curse_005", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"God damn this car.\""}
+{"example_id": "vain_curse_006", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"God damn them.\""}
+{"example_id": "vain_curse_007", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"God damn everything.\""}
+{"example_id": "vain_curse_008", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"Goddamn right.\""}
+{"example_id": "vain_curse_009", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"That's goddamn ridiculous.\""}
+{"example_id": "vain_curse_010", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"This goddamn thing won't work.\""}
+{"example_id": "vain_curse_011", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"Damn it to God.\""}
+{"example_id": "vain_curse_012", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"May God punish him.\""}
+{"example_id": "vain_curse_013", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"God should strike them down.\""}
+{"example_id": "vain_curse_014", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"I hope God sends them to hell.\""}
+{"example_id": "vain_curse_015", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"God curse you.\""}
+{"example_id": "vain_curse_016", "classification": "potentially_vain_use", "category": "cursing_condemning", "phrase": "\"To hell with them, God knows they deserve it.\""}
+{"example_id": "vain_emphasis_001", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"God, that was amazing.\""}
+{"example_id": "vain_emphasis_002", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"God, she's talented.\""}
+{"example_id": "vain_emphasis_003", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"God, I'm tired.\""}
+{"example_id": "vain_emphasis_004", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"God, it's hot outside.\""}
+{"example_id": "vain_emphasis_005", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"God, I love this song.\""}
+{"example_id": "vain_emphasis_006", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"God, that movie was bad.\""}
+{"example_id": "vain_emphasis_007", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Jesus, that's expensive.\""}
+{"example_id": "vain_emphasis_008", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Christ, that's a lot of money.\""}
+{"example_id": "vain_emphasis_009", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Lord, this coffee is good.\""}
+{"example_id": "vain_emphasis_010", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Good Lord, that was awkward.\""}
+{"example_id": "vain_emphasis_011", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"My God, he can sing.\""}
+{"example_id": "vain_emphasis_012", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Oh my God, I love your dress.\""}
+{"example_id": "vain_emphasis_013", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Oh my God, that's hilarious.\""}
+{"example_id": "vain_emphasis_014", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"God, I need a vacation.\""}
+{"example_id": "vain_emphasis_015", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Jesus, that was fast.\""}
+{"example_id": "vain_emphasis_016", "classification": "potentially_vain_use", "category": "casual_emphasis_intensifier", "phrase": "\"Christ, look at that.\""}
+{"example_id": "vain_joke_001", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"God has abandoned this meeting.\""}
+{"example_id": "vain_joke_002", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"Jesus take the wheel,\" said sarcastically"}
+{"example_id": "vain_joke_003", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"Lord, give me strength,\" said sarcastically"}
+{"example_id": "vain_joke_004", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"I need Jesus after watching that.\""}
+{"example_id": "vain_joke_005", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"This party needs Jesus.\""}
+{"example_id": "vain_joke_006", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"God himself couldn't fix this.\""}
+{"example_id": "vain_joke_007", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"Even Jesus would quit this job.\""}
+{"example_id": "vain_joke_008", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"The Lord is testing me,\" said jokingly over a minor inconvenience"}
+{"example_id": "vain_joke_009", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"God blessed me with good parking,\" said mockingly"}
+{"example_id": "vain_joke_010", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"Jesus died for this?\""}
+{"example_id": "vain_joke_011", "classification": "potentially_vain_use", "category": "jokes_sarcasm_mockery", "phrase": "\"Jesus is my co-pilot, but I'm driving badly.\""}
+{"example_id": "vain_flippant_001", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Praise Jesus, we found parking.\""}
+{"example_id": "vain_flippant_002", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Thank God that's over.\""}
+{"example_id": "vain_flippant_003", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Thank Christ it's Friday.\""}
+{"example_id": "vain_flippant_004", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"God bless this mess,\" said sarcastically"}
+{"example_id": "vain_flippant_005", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Lord knows I'm tired.\""}
+{"example_id": "vain_flippant_006", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"God knows where he went.\""}
+{"example_id": "vain_flippant_007", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Only God knows why they did that.\""}
+{"example_id": "vain_flippant_008", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"God forbid I get a day off.\""}
+{"example_id": "vain_flippant_009", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Heaven help us.\""}
+{"example_id": "vain_flippant_010", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"God save us from this movie.\""}
+{"example_id": "vain_flippant_011", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Lord have mercy, that was bad.\""}
+{"example_id": "vain_flippant_012", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Jesus save me from this homework.\""}
+{"example_id": "vain_flippant_013", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"God help whoever marries him.\""}
+{"example_id": "vain_flippant_014", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"Thank God I'm not them.\""}
+{"example_id": "vain_flippant_015", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"By God, I'll do it.\""}
+{"example_id": "vain_flippant_016", "classification": "potentially_vain_use", "category": "flippant_religious_phrase", "phrase": "\"So help me God, I'll scream.\""}
+{"example_id": "vain_oath_001", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I swear to God.\""}
+{"example_id": "vain_oath_002", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I swear to God, I'm serious.\""}
+{"example_id": "vain_oath_003", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I swear on God.\""}
+{"example_id": "vain_oath_004", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"On God, that happened.\""}
+{"example_id": "vain_oath_005", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"God as my witness, I didn't do it.\""}
+{"example_id": "vain_oath_006", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"Before God, I promise.\""}
+{"example_id": "vain_oath_007", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"So help me God, I'll never speak to him again.\""}
+{"example_id": "vain_oath_008", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I swear to Jesus.\""}
+{"example_id": "vain_oath_009", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I swear on Jesus.\""}
+{"example_id": "vain_oath_010", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I swear on the Bible.\""}
+{"example_id": "vain_oath_011", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"God knows I'm telling the truth.\""}
+{"example_id": "vain_oath_012", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"May God strike me dead if I'm lying.\""}
+{"example_id": "vain_oath_013", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I cross my heart, hope to die, God knows it's true.\""}
+{"example_id": "vain_oath_014", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"As God is my witness, I'll get revenge.\""}
+{"example_id": "vain_oath_015", "classification": "potentially_vain_use", "category": "oath_promise_swearing", "phrase": "\"I promise before God,\" said casually"}
+{"example_id": "respectful_prayer_001", "classification": "respectful_use", "category": "prayer", "phrase": "\"Lord, please help me.\""}
+{"example_id": "respectful_prayer_002", "classification": "respectful_use", "category": "prayer", "phrase": "\"God, give me wisdom.\""}
+{"example_id": "respectful_prayer_003", "classification": "respectful_use", "category": "prayer", "phrase": "\"Jesus, have mercy on me.\""}
+{"example_id": "respectful_prayer_004", "classification": "respectful_use", "category": "prayer", "phrase": "\"Father, forgive me.\""}
+{"example_id": "respectful_prayer_005", "classification": "respectful_use", "category": "prayer", "phrase": "\"Lord, guide my words.\""}
+{"example_id": "respectful_prayer_006", "classification": "respectful_use", "category": "prayer", "phrase": "\"God, comfort those who are grieving.\""}
+{"example_id": "respectful_prayer_007", "classification": "respectful_use", "category": "prayer", "phrase": "\"Lord, protect my family.\""}
+{"example_id": "respectful_prayer_008", "classification": "respectful_use", "category": "prayer", "phrase": "\"Jesus, teach me to love others.\""}
+{"example_id": "respectful_prayer_009", "classification": "respectful_use", "category": "prayer", "phrase": "\"Holy Spirit, lead me.\""}
+{"example_id": "respectful_prayer_010", "classification": "respectful_use", "category": "prayer", "phrase": "\"Lord, help me forgive.\""}
+{"example_id": "respectful_prayer_011", "classification": "respectful_use", "category": "prayer", "phrase": "\"God, I need Your strength.\""}
+{"example_id": "respectful_prayer_012", "classification": "respectful_use", "category": "prayer", "phrase": "\"Lord, be near to the sick.\""}
+{"example_id": "respectful_prayer_013", "classification": "respectful_use", "category": "prayer", "phrase": "\"Jesus, I trust You.\""}
+{"example_id": "respectful_prayer_014", "classification": "respectful_use", "category": "prayer", "phrase": "\"God, thank You for today.\""}
+{"example_id": "respectful_prayer_015", "classification": "respectful_use", "category": "prayer", "phrase": "\"Lord, show me what is right.\""}
+{"example_id": "respectful_worship_001", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Praise the Lord.\""}
+{"example_id": "respectful_worship_002", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Blessed be the name of the Lord.\""}
+{"example_id": "respectful_worship_003", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Glory to God.\""}
+{"example_id": "respectful_worship_004", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Thanks be to God.\""}
+{"example_id": "respectful_worship_005", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Holy is the Lord.\""}
+{"example_id": "respectful_worship_006", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Jesus Christ is Lord.\""}
+{"example_id": "respectful_worship_007", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"God is good.\""}
+{"example_id": "respectful_worship_008", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"The Lord is faithful.\""}
+{"example_id": "respectful_worship_009", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Great is Thy faithfulness.\""}
+{"example_id": "respectful_worship_010", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Hallelujah, praise the Lord.\""}
+{"example_id": "respectful_worship_011", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Lord, You are holy.\""}
+{"example_id": "respectful_worship_012", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"God, You are worthy of praise.\""}
+{"example_id": "respectful_worship_013", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"Jesus, You are my Savior.\""}
+{"example_id": "respectful_worship_014", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"The Lord reigns.\""}
+{"example_id": "respectful_worship_015", "classification": "respectful_use", "category": "worship_praise", "phrase": "\"To God be the glory.\""}
+{"example_id": "respectful_thanks_001", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"Thank God for His mercy.\""}
+{"example_id": "respectful_thanks_002", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"I thank the Lord for helping me through that.\""}
+{"example_id": "respectful_thanks_003", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"God has been gracious to us.\""}
+{"example_id": "respectful_thanks_004", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"Thank You, Lord, for this meal.\""}
+{"example_id": "respectful_thanks_005", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"Thank You, God, for bringing us safely home.\""}
+{"example_id": "respectful_thanks_006", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"I'm grateful to God for my family.\""}
+{"example_id": "respectful_thanks_007", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"The Lord has provided.\""}
+{"example_id": "respectful_thanks_008", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"God answered our prayers.\""}
+{"example_id": "respectful_thanks_009", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"Thank the Lord for healing.\""}
+{"example_id": "respectful_thanks_010", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"God gave me peace during that season.\""}
+{"example_id": "respectful_thanks_011", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"I give God thanks for this opportunity.\""}
+{"example_id": "respectful_thanks_012", "classification": "respectful_use", "category": "thanksgiving", "phrase": "\"We thank God for His faithfulness.\""}
+{"example_id": "respectful_teaching_001", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"The Lord is my shepherd.\""}
+{"example_id": "respectful_teaching_002", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"Jesus taught His disciples to pray.\""}
+{"example_id": "respectful_teaching_003", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"God created the heavens and the earth.\""}
+{"example_id": "respectful_teaching_004", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"The Bible says, 'You shall not take the name of the Lord your God in vain.'\""}
+{"example_id": "respectful_teaching_005", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"Christians believe Jesus is the Son of God.\""}
+{"example_id": "respectful_teaching_006", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"The name of the Lord is holy.\""}
+{"example_id": "respectful_teaching_007", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"In the Gospel of John, Jesus says...\""}
+{"example_id": "respectful_teaching_008", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"God's covenant with Israel is central to the Old Testament.\""}
+{"example_id": "respectful_teaching_009", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"The Holy Spirit is described as Comforter.\""}
+{"example_id": "respectful_teaching_010", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"Jesus' death and resurrection are central to Christian faith.\""}
+{"example_id": "respectful_teaching_011", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"The Lord's Prayer begins, 'Our Father...'\""}
+{"example_id": "respectful_teaching_012", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"Moses encountered God at the burning bush.\""}
+{"example_id": "respectful_teaching_013", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"The Psalms often praise the Lord.\""}
+{"example_id": "respectful_teaching_014", "classification": "respectful_use", "category": "scripture_teaching_discussion", "phrase": "\"Jesus calls His followers to love their enemies.\""}
+{"example_id": "respectful_blessing_001", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May God bless you.\""}
+{"example_id": "respectful_blessing_002", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"The Lord bless you and keep you.\""}
+{"example_id": "respectful_blessing_003", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May the peace of Christ be with you.\""}
+{"example_id": "respectful_blessing_004", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"God be with you.\""}
+{"example_id": "respectful_blessing_005", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May the Lord guide your steps.\""}
+{"example_id": "respectful_blessing_006", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May God comfort you.\""}
+{"example_id": "respectful_blessing_007", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May Jesus give you peace.\""}
+{"example_id": "respectful_blessing_008", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May the Lord protect you.\""}
+{"example_id": "respectful_blessing_009", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"God bless your marriage.\""}
+{"example_id": "respectful_blessing_010", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May the Lord strengthen you.\""}
+{"example_id": "respectful_blessing_011", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May God grant you wisdom.\""}
+{"example_id": "respectful_blessing_012", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May Christ's peace rule in your heart.\""}
+{"example_id": "respectful_blessing_013", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"God bless this home.\""}
+{"example_id": "respectful_blessing_014", "classification": "respectful_use", "category": "blessing_benediction", "phrase": "\"May the Lord have mercy.\""}
+{"example_id": "respectful_confession_001", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"God, I have sinned.\""}
+{"example_id": "respectful_confession_002", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"Lord, forgive me.\""}
+{"example_id": "respectful_confession_003", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"Jesus, have mercy on me, a sinner.\""}
+{"example_id": "respectful_confession_004", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"I need God's grace.\""}
+{"example_id": "respectful_confession_005", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"The Lord knows my heart, and I need to change.\""}
+{"example_id": "respectful_confession_006", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"God is just, and I have done wrong.\""}
+{"example_id": "respectful_confession_007", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"Lord, cleanse my heart.\""}
+{"example_id": "respectful_confession_008", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"Jesus, help me turn from sin.\""}
+{"example_id": "respectful_confession_009", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"God, make me humble.\""}
+{"example_id": "respectful_confession_010", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"Lord, I confess my pride.\""}
+{"example_id": "respectful_confession_011", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"God, teach me obedience.\""}
+{"example_id": "respectful_confession_012", "classification": "respectful_use", "category": "confession_repentance_humility", "phrase": "\"Lord, help me make amends.\""}
+{"example_id": "respectful_testimony_001", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"God helped me through a difficult time.\""}
+{"example_id": "respectful_testimony_002", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"I believe the Lord was merciful to me.\""}
+{"example_id": "respectful_testimony_003", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"Jesus changed my life.\""}
+{"example_id": "respectful_testimony_004", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"God gave me peace when I was afraid.\""}
+{"example_id": "respectful_testimony_005", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"The Lord sustained our family.\""}
+{"example_id": "respectful_testimony_006", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"I prayed, and God gave me courage.\""}
+{"example_id": "respectful_testimony_007", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"Christ is the foundation of my faith.\""}
+{"example_id": "respectful_testimony_008", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"God has taught me patience.\""}
+{"example_id": "respectful_testimony_009", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"The Lord convicted me that I needed to apologize.\""}
+{"example_id": "respectful_testimony_010", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"I believe God is calling me to serve.\""}
+{"example_id": "respectful_testimony_011", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"God used that experience to shape me.\""}
+{"example_id": "respectful_testimony_012", "classification": "respectful_use", "category": "honest_testimony", "phrase": "\"Jesus is my hope.\""}
+{"example_id": "respectful_liturgy_001", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"In the name of the Father, and of the Son, and of the Holy Spirit.\""}
+{"example_id": "respectful_liturgy_002", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"In Jesus' name, amen.\""}
+{"example_id": "respectful_liturgy_003", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Lord, hear our prayer.\""}
+{"example_id": "respectful_liturgy_004", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"The grace of our Lord Jesus Christ be with you.\""}
+{"example_id": "respectful_liturgy_005", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Thanks be to God.\""}
+{"example_id": "respectful_liturgy_006", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"This is the word of the Lord.\""}
+{"example_id": "respectful_liturgy_007", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Glory be to the Father...\""}
+{"example_id": "respectful_liturgy_008", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Kyrie eleison, Lord have mercy.\""}
+{"example_id": "respectful_liturgy_009", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Christ have mercy.\""}
+{"example_id": "respectful_liturgy_010", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Lamb of God, have mercy on us.\""}
+{"example_id": "respectful_liturgy_011", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Holy, holy, holy, Lord God Almighty.\""}
+{"example_id": "respectful_liturgy_012", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"Our help is in the name of the Lord.\""}
+{"example_id": "respectful_liturgy_013", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"We gather in the name of Jesus Christ.\""}
+{"example_id": "respectful_liturgy_014", "classification": "respectful_use", "category": "formal_liturgical", "phrase": "\"I baptize you in the name of the Father, and of the Son, and of the Holy Spirit.\""}
+{"example_id": "respectful_media_001", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"I'm praying that God gives you peace.\""}
+{"example_id": "respectful_media_002", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"I believe Jesus calls us to forgive.\""}
+{"example_id": "respectful_media_003", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"Let's ask the Lord for wisdom before deciding.\""}
+{"example_id": "respectful_media_004", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"God deserves our reverence, not casual use of His name.\""}
+{"example_id": "respectful_media_005", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"I don't use Jesus' name as an exclamation.\""}
+{"example_id": "respectful_media_006", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"The Lord's name should be honored.\""}
+{"example_id": "respectful_media_007", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"I'm grateful to God for this opportunity.\""}
+{"example_id": "respectful_media_008", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"May God bless everyone affected by this tragedy.\""}
+{"example_id": "respectful_media_009", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"Our church worships Jesus as Lord.\""}
+{"example_id": "respectful_media_010", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"The film portrays a character praying to God.\""}
+{"example_id": "respectful_media_011", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"The hymn praises the name of the Lord.\""}
+{"example_id": "respectful_media_012", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"The scene shows someone calling on God in prayer.\""}
+{"example_id": "respectful_media_013", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"The speaker invoked God sincerely during the memorial.\""}
+{"example_id": "respectful_media_014", "classification": "respectful_use", "category": "respectful_conversation_media", "phrase": "\"The character says, 'Lord, forgive me,' as a prayer.\""}

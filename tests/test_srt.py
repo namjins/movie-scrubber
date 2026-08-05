@@ -1,6 +1,13 @@
 """SRT masking: byte-identity on no-hit, length-preserving masking, context exemption,
 and timing/index/line-ending preservation."""
-from scrub.srt import mask_srt_text, read_srt, write_srt
+from scrub.srt import (
+    cue_tokens,
+    extract_subtitle_hits,
+    mask_srt_text,
+    parse_srt_cues,
+    read_srt,
+    write_srt,
+)
 from scrub.wordlists import load_censor
 
 CENSOR = load_censor()
@@ -73,3 +80,45 @@ def test_read_write_roundtrip_bom(tmp_path):
     out = tmp_path / "out.srt"
     write_srt(out, text, codec)
     assert out.read_bytes().startswith(b"\xef\xbb\xbf")
+
+
+def test_parse_cues_preserves_absolute_spans_and_times():
+    cues = parse_srt_cues(DIRTY)
+    assert len(cues) == 2
+    assert cues[0].index == 1
+    assert cues[0].start_s == 1.0
+    assert cues[0].end_s == 3.0
+    assert DIRTY[cues[0].line_spans[0][0]:cues[0].line_spans[0][1]] == (
+        "This shit happens every week."
+    )
+
+
+def test_extract_hits_uses_context_and_maps_multiword_tokens():
+    text = (
+        "1\n"
+        "00:00:01,000 --> 00:00:03,000\n"
+        "Oh my god, what now?\n"
+    )
+    cue = parse_srt_cues(text)[0]
+    hits = extract_subtitle_hits(cue, CENSOR)
+    hit = next(h for h in hits if h.matched.lower() == "oh my god")
+    assert hit.exempted is False
+    assert hit.line_span == (0, 9)
+    assert hit.token_ordinals == [0, 1, 2]
+
+
+def test_anchor_tokens_suppress_bracketed_captions_and_profane_hits():
+    text = (
+        "1\n"
+        "00:00:01,000 --> 00:00:03,000\n"
+        "[Michelle] alpha damn omega <i>noise</i>\n"
+    )
+    cue = parse_srt_cues(text)[0]
+    hits = extract_subtitle_hits(cue, CENSOR)
+    tokens = cue_tokens(cue, hits)
+    by_text = {t.text.lower(): t for t in tokens}
+    assert by_text["michelle"].anchor_eligible is False
+    assert by_text["damn"].anchor_eligible is False
+    assert by_text["noise"].anchor_eligible is False
+    assert by_text["alpha"].anchor_eligible is True
+    assert by_text["omega"].anchor_eligible is True

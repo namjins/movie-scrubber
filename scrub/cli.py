@@ -14,8 +14,10 @@ from .apply import FileResult, apply_audio, apply_srt
 from .audio import ToolError, probe_format
 from .config import (BACKUPS_DIR, DEFAULT_CONTEXT_RULES, DEFAULT_MODELS,
                      DEFAULT_OUTPUT_DIRNAME, DEFAULT_WORDLIST)
-from .detect import find_inputs, transcribe_inputs
+from .detect import discover_input_jobs, transcribe_inputs
 from .plan import derive_audio_plan
+from .srt import parse_srt_cues, read_srt
+from .vendored.context_filter import POLYTHEISTIC_CONTEXT_RULES
 from .verify import verify_audio_parity, verify_srt
 from .wordlists import load_censor
 
@@ -35,12 +37,23 @@ def _build_parser() -> argparse.ArgumentParser:
     p.add_argument("--no-audio", dest="audio", action="store_false")
     p.add_argument("--subs", dest="subs", action="store_true", default=True)
     p.add_argument("--no-subs", dest="subs", action="store_false")
+    p.add_argument("--no-subtitle-hints", dest="subtitle_hints",
+                   action="store_false", default=True,
+                   help="mask subtitles normally, but do not use SRT timings for audio")
+    p.add_argument("--subtitle-fallbacks", choices=("report", "apply"), default="report",
+                   help="whether pure subtitle fallback windows are report-only or applied")
+    p.add_argument("--subtitle-search-pad", type=float, default=1.0,
+                   help="seconds around a cue to search for Whisper-confirmed profanity")
     p.add_argument("--models", type=str, default=",".join(DEFAULT_MODELS),
                    help="comma-separated whisper models for the mute union")
     p.add_argument("--wordlist", type=Path, default=DEFAULT_WORDLIST)
     p.add_argument("--context-rules", type=Path, default=DEFAULT_CONTEXT_RULES)
     p.add_argument("--no-context-rules", dest="use_context_rules",
                    action="store_false", default=True)
+    p.add_argument("--polytheistic", action="store_true", default=False,
+                   help="opt into the polytheistic exemption bundle (\"by the gods\", "
+                        "\"the old gods\", \"the hells\") for a mythology/fantasy title "
+                        "where god/gods/hell(s) are lore, not blasphemy")
     p.add_argument("--workers", type=int, default=None,
                    help="override per-model worker count")
     p.add_argument("--limit", type=int, default=None, help="process first N files (smoke)")
@@ -59,8 +72,10 @@ def main(argv: list[str] | None = None) -> int:
         sys.stderr.write(f"ERROR: wordlist not found: {args.wordlist}\n")
         return 2
 
+    extra_shared = [POLYTHEISTIC_CONTEXT_RULES] if args.polytheistic else None
     try:
-        censor = load_censor(args.wordlist, args.context_rules, args.use_context_rules)
+        censor = load_censor(args.wordlist, args.context_rules, args.use_context_rules,
+                             extra_shared=extra_shared)
     except (FileNotFoundError, ValueError) as exc:
         sys.stderr.write(f"ERROR: {exc}\n")
         return 2
@@ -69,8 +84,9 @@ def main(argv: list[str] | None = None) -> int:
                          f"(check {args.context_rules})\n")
         return 2
 
-    inputs = find_inputs(args.input, do_audio=args.audio, do_subs=args.subs, limit=args.limit)
-    if not inputs.flacs and not inputs.srts:
+    discovery = discover_input_jobs(args.input, do_audio=args.audio, do_subs=args.subs,
+                                    limit=args.limit)
+    if not discovery.flacs and not discovery.srts:
         sys.stderr.write("ERROR: no .flac or .srt inputs found\n")
         return 2
 
@@ -79,40 +95,70 @@ def main(argv: list[str] | None = None) -> int:
     models = [m.strip() for m in args.models.split(",") if m.strip()]
 
     mode = "DRY-RUN" if args.dry_run else ("APPLY in-place" if args.in_place else "APPLY")
-    print(f"# movie-scrubber  mode={mode}  audio={len(inputs.flacs)} subs={len(inputs.srts)}  "
+    print(f"# movie-scrubber  mode={mode}  audio={len(discovery.flacs)} subs={len(discovery.srts)}  "
           f"models={','.join(models)}  context-rules={censor.n_rules}")
+    print(f"  pairs={discovery.paired_count} unpaired-audio={discovery.unpaired_flac_count} "
+          f"unpaired-subs={discovery.unpaired_srt_count} ambiguous-subs={discovery.ambiguous_count}")
 
     results: list[FileResult] = []
 
     # --- Audio -------------------------------------------------------------
-    if inputs.flacs:
+    if discovery.flacs:
         workers_override = ({m: args.workers for m in models} if args.workers else None)
         try:
-            raws = transcribe_inputs(inputs.flacs, models, workers_by_model=workers_override)
+            raws = transcribe_inputs(discovery.flacs, models, workers_by_model=workers_override)
         except SystemExit:
             raise
         except ToolError as exc:
             sys.stderr.write(f"ERROR: {exc}\n")
             return 2
 
-        for flac in inputs.flacs:
+        for job in discovery.jobs:
+            flac = job.flac
+            if flac is None:
+                continue
             try:
                 fmt = probe_format(flac, args.ffprobe)
             except ToolError as exc:
                 sys.stderr.write(f"ERROR: {exc}\n")
                 return 2
-            plan = derive_audio_plan(raws.get(flac, {}), censor, fmt.duration)
+            cues = None
+            if args.subs and args.subtitle_hints and job.srt is not None and not job.ambiguous_srts:
+                try:
+                    srt_text, _codec = read_srt(job.srt)
+                    cues = parse_srt_cues(srt_text)
+                except OSError as exc:
+                    sys.stderr.write(f"WARN: subtitle hints disabled for {flac.name}: {exc}\n")
+            plan = derive_audio_plan(
+                raws.get(flac, {}),
+                censor,
+                fmt.duration,
+                subtitle_cues=cues,
+                subtitle_hints=bool(cues) and args.subtitle_hints,
+                subtitle_fallbacks=args.subtitle_fallbacks,
+                subtitle_search_pad=args.subtitle_search_pad,
+            )
             rel = flac.relative_to(input_root) if flac != input_root else Path(flac.name)
             dst = out_root / rel
             r = apply_audio(flac, dst, plan, fmt, dry_run=args.dry_run,
                             in_place=args.in_place, backups_root=BACKUPS_DIR,
                             input_root=input_root, ffmpeg=args.ffmpeg, ffprobe=args.ffprobe)
             results.append(r)
+            source_counts = ", ".join(f"{k}={v}" for k, v in sorted(plan.source_counts().items()))
+            details = [d for d in (r.detail, source_counts) if d]
+            if plan.report_only:
+                previews = "; ".join(
+                    f"{h.cue_time} {h.preview}" for h in plan.report_only[:3]
+                )
+                details.append(f"subtitle-fallback report-only={len(plan.report_only)}"
+                               + (f" [{previews}]" if previews else ""))
+            if job.ambiguous_srts:
+                details.append("subtitle hints disabled: ambiguous subtitles")
             print(f"  [audio] {rel}: {r.action} ({r.changes})"
-                  + (f"  {r.detail}" if r.detail else ""))
+                  + (f"  {'; '.join(details)}" if details else ""))
 
     # --- Subtitles ---------------------------------------------------------
-    for srt in inputs.srts:
+    for srt in discovery.srts:
         rel = srt.relative_to(input_root) if srt != input_root else Path(srt.name)
         dst = out_root / rel
         r = apply_srt(srt, dst, censor, dry_run=args.dry_run, in_place=args.in_place,

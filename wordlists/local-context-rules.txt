@@ -13,3 +13,64 @@
 # Narrow in practice (both phrases would need to land in the same subtitle cue or Whisper
 # segment) but a real false-negative risk, not a hypothetical one.
 hell	\bhell[\s\-]?fire\b
+
+# Scripture-quote exemptions (2026-08-05, corpus-driven from the Stranger Things subtitle
+# set at the operator's request -- a real-corpus pass over the 48 .srt files / 42 episodes at
+# C:\Users\Marc\Desktop\Audio\context). Both fire on S01E05 "Chapter Five: The Flea and the
+# Acrobat" #173-181, Pastor Charles's eulogy at Will's funeral, which paraphrases Isaiah
+# 41:10 ("Fear not, for I am with you. Be not dismayed, for I am your God. I will
+# strengthen you.") and continues into a sermon on faith. Per religious-terms-policy.md
+# these are the "scripture / liturgy / quote" and "teaching" categories -- keep, not censor.
+#
+# Measured (method: extract_subtitle_hits over every cue of all 48 files, through the real
+# scrub.wordlists.load_censor() pipeline; re-derived and independently re-run twice, 2026-08-05):
+# 568 hits on the bare god/jesus/christ/lord/holy/hell/damn tokens (565 censored, 3 exempted
+# incl. these 2), plus 249 more hits on compound wordlist entries containing those tokens
+# (goddamn x69, "my god" x81, "oh my god" x51, "damn it" x18, "oh god" x15, "god damn" x5,
+# hellhole x4, goddammit/goddamnit x6) -- 817 religious-domain hits total. NOTE: this count is
+# a one-time audit against subtitle files that live OUTSIDE this repo (an operator-provided,
+# copyrighted third-party corpus at C:\Users\Marc\Desktop\Audio\context, not vendored here for
+# licensing reasons) -- it is not, and cannot be, enforced by a repo-committed regression test.
+# Re-run it by hand if this file's rules change materially.
+#
+# All but 1 of those 817 hits are still correctly censored after the operator override below.
+# Reviewed and left deliberately CENSORED (not overlooked) despite sharing tokens/scenes with
+# the exemptions in this file:
+#   - cue #180, same Pastor Charles eulogy as #174/#181 below: "could God take from us / someone
+#     so young, so innocent?" -- a rhetorical grief question, not a scripture quote or worship
+#     reference; ambiguous enough that the policy's "when in doubt, censor" default applies.
+# (Policy: this repo does not vendor religious-terms-policy.md; the "exempt only high-precision
+# legit uses, else censor" rule is documented in universal_game_editor's copy of that file.)
+#
+# S04E05 #616, "I know God has a plan…", was ALSO initially left censored under the same
+# ambiguous-delivery reasoning as cue #180 (sincere faith vs. casual resignation idiom -- this
+# repo's text-only classifier can't tell delivery apart). Operator override, 2026-08-05: exempt
+# it -- see the rule below. This is a judgment call the moderate-posture default would not have
+# made on its own (recorded here so a future reader isn't confused why this one line differs
+# from the cue #180 call it was originally grouped with).
+#
+# Guilty-until-tight: neither pattern below is ever used as a vain exclamation, curse, or
+# intensifier -- verified against the 817-hit sweep above (nothing else in the corpus matches
+# either regex) and by construction (both require the exact scripture/sermon phrasing).
+god	\bfor\s+i\s+am\s+your\s+god\b
+god	\bturn(ed|ing)?\s+away\s+from\s+god\b
+
+# "god complex" -- a common secular idiom/psychological term ("a serious god complex", "has a
+# God complex"), never a vain exclamation (you cannot shout "God complex!" as blasphemy the way
+# you can shout "God!" or "Jesus Christ!"). Same idiom-exemption class as "hellfire" above,
+# including the SAME caveat: found exactly 2 occurrences in the 817-hit sweep (S05E07 #646,
+# S05E08 #23), both this idiom, but the exemption check is whole-line, not occurrence-specific,
+# so a punctuation-free run-on where a vain "god" happens to be immediately followed by the
+# word "complex" on the same line/segment would also ride along and get wrongly exempted
+# (verified: censor.permit("god", "oh my god complex situation") -> True). Narrow (needs that
+# exact adjacency with no comma) but a real false-negative risk, not a hypothetical one --
+# Whisper transcripts in particular often lack the comma that would otherwise block this.
+god	\bgod\s+complex\b
+
+# "God has a plan" -- operator-directed exemption, 2026-08-05 (see note above): a testimony/
+# faith idiom ("I know God has a plan…", S04E05 #616), same shape as the shared baseline's
+# existing "Thanksgiving / testimony" category (\bgod\s+(gave|helped|answered|...)\b in
+# religious-context-rules.txt) -- that list just doesn't happen to include "has a plan".
+# Verified against the full 817-hit sweep: exactly 1 occurrence in the corpus, no collision
+# with a vain/sarcastic use of the same phrase found.
+god	\bgod\s+has\s+a\s+plan\b

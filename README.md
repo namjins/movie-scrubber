@@ -23,13 +23,16 @@ stable-whisper DTW transcription, the blasphemy context-rules, the shared wordli
   (`god of war` stays, vain `oh my god` is masked). Timing lines, indices, blank separators,
   line endings, and encoding (incl. UTF-8 BOM) are preserved byte-for-byte.
 
-Both surfaces are processed independently, from the same wordlist and context rules, in one
-`scrub` invocation — point it at a folder and both `.flac` and `.srt` files underneath get
-scrubbed together; no separate command or flag needed for subtitles.
+Both surfaces use the same wordlist and context rules in one `scrub` invocation. When a
+paired `.srt` is available, subtitle timings are also used as conservative hints for the
+audio plan: Whisper-confirmed and tightly inferred subtitle hits can add mute windows, while
+rough subtitle-only fallback hits are report-only unless explicitly opted into.
 
-An optional **polytheistic bundle** (`wordlists/polytheistic-context-rules.txt`) is shipped
-but not wired in by default — see [Context rules](#context-rules) below if you're scrubbing a
-fantasy/mythology title where "god"/"gods"/"hell(s)" are in-world setting nouns.
+An optional **polytheistic bundle** (`wordlists/polytheistic-context-rules.txt`), opt-in via
+`--polytheistic`, is available if you're scrubbing a fantasy/mythology title where "god"/
+"hell(s)" are in-world setting nouns — see [Context rules](#context-rules) below. Note: it
+only affects **`god`/`hell`/`hells`** in this repo; 12 of its 24 rules key on the plural
+`gods`, which isn't in `wordlists/default.txt` here and so can never be hit.
 
 ## Requirements
 
@@ -61,6 +64,9 @@ scrub film.srt --no-audio            # subtitles only (runs without a GPU)
 scrub /movies --apply --models base.en,large-v3-turbo   # drop medium.en (2-model union)
 scrub /movies --limit 3              # smoke-test on the first few files
 scrub /movies --apply --workers 1    # force every model to 1 worker (see GPU worker sizing)
+scrub /movies --no-subtitle-hints     # mask subtitles, but don't use SRT timings for audio
+scrub /movies --subtitle-fallbacks apply  # opt into rough subtitle-only fallback mutes
+scrub /movies --polytheistic         # fantasy/mythology title: "god of war"-style lore stays
 ```
 
 Exit codes: **0** ok · **1** ran but a file errored / verify failed · **2** did not run
@@ -106,9 +112,10 @@ Five pieces determine whether a hit is censored, in load order:
    this project's own exemptions live — e.g. "hellfire"/"hell-fire"/"hell fire" as a common
    idiom/proper noun, not a vain "hell" exclamation.
 4. `wordlists/polytheistic-context-rules.txt` — an **opt-in** bundle for fantasy/mythology
-   titles where "god"/"gods"/"hell(s)" are in-world setting nouns ("by the gods", "the old
-   gods"). Shipped but **not yet wired to a CLI flag** — to use it today, concatenate it onto
-   a copy of `religious-context-rules.txt` and pass that combined file via `--context-rules`.
+   titles where "god"/"hell(s)" are in-world setting nouns, enabled via `--polytheistic`.
+   Only reaches `god`/`hell`/`hells` in this repo — the bundle's `gods`-keyed rules ("by the
+   gods", "the old gods") are inert here because plural `gods` isn't in `default.txt`; add it
+   there first if you need those to fire.
 5. `--context-rules PATH` — point at a custom/replacement rules file instead of the shipped
    baseline (same `<token>\t<context-regex>` format). Note this replaces the *shared* baseline
    path, not the local delta — `local-context-rules.txt` still merges on top either way.
@@ -125,11 +132,14 @@ both). Narrow in practice, but real; keep new rules as tight as possible.
   union is 2-model (`large-v3-turbo` ∪ `base.en`); `medium.en` has no measured recall benefit
   and costs a full extra transcription pass. Measure it on one movie and drop it via
   `--models` if it isn't earning its keep.
+- **Subtitle hints.** Pairing prefers `Movie.srt` for `Movie.flac`, then language suffixes
+  like `Movie-eng.srt` / `Movie.en.srt`. Dry-run reports paired/unpaired counts plus
+  subtitle-confirmed, subtitle-inferred, and report-only subtitle-fallback hits.
 - **Caching.** RAW transcripts are cached at `cache/whisper/raw/<model>/<sha256>.json`. A
   re-run reuses them (no GPU work); changing the wordlist re-derives correctly because only
   the RAW result is cached, never the derived windows.
 - **Deliberate descopes.** No phonetic-homophone recovery layer (acceptable for clean studio
-  VO) and no cross-referencing of subtitle timings against audio. See the project plan.
+  VO).
 
 ## Layout
 
@@ -146,8 +156,8 @@ tests/            pytest suite (run: pytest)
 ## Development
 
 ```bash
-pytest            # 29 tests: SRT round-trip, clamp/promotion, parity gate, context rules
-                   # (incl. the religious-exemption regression tests), worker-count sizing
+pytest            # SRT round-trip, pairing, subtitle hints, clamp/promotion, parity gate,
+                   # context rules, worker-count sizing
 ```
 
 The vendored modules under `scrub/vendored/` are periodically re-synced from

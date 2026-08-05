@@ -28,6 +28,7 @@ def load_censor(
     context_rules: Path | None = DEFAULT_CONTEXT_RULES,
     use_context_rules: bool = True,
     local_context_rules: Path | None = DEFAULT_LOCAL_CONTEXT_RULES,
+    extra_shared: list[Path] | None = None,
 ) -> Censor:
     if not Path(wordlist).exists():
         raise FileNotFoundError(f"Wordlist not found: {wordlist}")
@@ -45,8 +46,11 @@ def load_censor(
         # load_merged_context_rules raises for an explicitly-requested-but-absent per_game_path.
         local = Path(local_context_rules) if local_context_rules else None
         per_game_path = local if local and local.exists() else None
+        # `extra_shared` opts a title into always-on bundles beyond the default baseline (e.g.
+        # POLYTHEISTIC_CONTEXT_RULES for a mythology/fantasy title where god/gods/hell(s) are
+        # lore, not blasphemy) -- inert (no rules merged) unless the caller passes one.
         rules = load_merged_context_rules(per_game_path=per_game_path, include_shared=True,
-                                          shared_path=shared)
+                                          shared_path=shared, extra_shared=extra_shared)
     permit = build_permit(rules)
     n_rules = sum(len(v) for v in rules.values())
     return Censor(swears_set=swears_set, pattern=pattern, permit=permit, n_rules=n_rules)
