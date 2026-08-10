@@ -161,6 +161,28 @@ def test_god_has_a_plan_exempt_by_operator_override():
     assert censor.permit("god", "God, this is annoying") is False
 
 
+def test_bat_god_exempt_but_bare_god_still_censored():
+    """Corpus-driven (2026-08-10, Batman: Caped Crusader S02E04 "The Devil's Due" cult
+    storyline): "bat god" (Barbatos) is an in-world deity reference, never a vain
+    exclamation -- exempt it, but don't let the pattern over-match a plain "God" nearby."""
+    censor = load_censor()
+    assert censor.permit("god", "Barbatos is a demon bat god, who slumbers...") is True
+    assert censor.permit("god", "a cult devoted to an evil bat god") is True
+    assert censor.permit("god", "oh my God, what a god awful mess") is False
+
+
+def test_hell_on_earth_exempt_by_operator_override():
+    """Operator-directed exemption (2026-08-10): "A fire there will be hell on earth"
+    (Batman: Caped Crusader S01E04 #264) is an idiom the moderate-posture default would
+    NOT have exempted on its own (same shape as "hell of a" / "to hell with", which stay
+    censored) -- exempt per explicit operator override. Ordinary vain/exclamatory uses of
+    "hell" must still censor."""
+    censor = load_censor()
+    assert censor.permit("hell", "there will be hell on earth") is True
+    assert censor.permit("hell", "go to hell") is False
+    assert censor.permit("hell", "what the hell is that") is False
+
+
 def test_local_delta_absent_does_not_break_load_censor(tmp_path):
     """load_censor() must not fail-loud when local_context_rules points at a missing file
     (mirrors the optional-file contract in config.py's DEFAULT_LOCAL_CONTEXT_RULES docstring)."""

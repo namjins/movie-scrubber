@@ -74,3 +74,32 @@ god	\bgod\s+complex\b
 # Verified against the full 817-hit sweep: exactly 1 occurrence in the corpus, no collision
 # with a vain/sarcastic use of the same phrase found.
 god	\bgod\s+has\s+a\s+plan\b
+
+# Batman: Caped Crusader (2024) sweep, 2026-08-10 -- corpus-driven from the operator's request
+# over 20 .srt files at C:\Users\Marc\Desktop\Audio\to_edit. Measured (method: extract_subtitle_hits
+# over every cue of all 20 files, through the real scrub.wordlists.load_censor() pipeline):
+# 152 total hits, 122 on the religious-domain tokens (god/jesus/christ/hell/damn bare + compounds),
+# 0 exempted before this pass -- every one of those 122 was reviewed for legitimate exemption
+# candidates against the corpus context.
+
+# "bat god" -- S02E04 "The Devil's Due" runs an entire cult-worships-a-fictional-demon storyline
+# ("Barbatos is a demon bat god," #178; "a cult devoted to an evil bat god" #188). This is a
+# setting noun / in-world deity reference, not blasphemy -- same idiom/proper-noun exemption
+# class as "hellfire" and "god complex" above (you cannot shout "Bat God!" as blasphemy the way
+# you can shout "God!"). Neither the shared baseline's deity-epithet rules (`the ___ god`,
+# `god of ___`) nor the polytheistic bundle's adjective list happen to cover "demon"/"evil" as
+# the modifier, so it was uncovered before this rule. Guilty-until-tight: verified against the
+# raw text of all 20 files (not just cues) -- exactly these 2 matches, nothing else in the
+# corpus collides. Same whole-line-match caveat as every rule in this file applies.
+god	\bbat\s+god\b
+
+# "hell on earth" -- operator-directed exemption, 2026-08-10 (S01E04 "The Night of the Hunters"
+# #264, "A fire there will be hell on earth"). Flagged as a borderline call before this rule
+# landed: unlike "hellfire"/"god complex", this IS the same idiom-exemption shape the shared
+# policy otherwise keeps censored (a descriptive intensifier close in kind to "what the hell" /
+# "hell of a"), so the moderate-posture default would not have exempted it on its own. Operator
+# override recorded here so a future reader isn't confused why this one reads differently from
+# the "hell of a" / "to hell with" idioms in the same sweep that were left censored. Guilty-
+# until-tight: verified against the raw text of all 20 files -- exactly 1 occurrence, no
+# collision with a vain/exclamatory "hell" sharing a cue anywhere in the corpus.
+hell	\bhell\s+on\s+earth\b
