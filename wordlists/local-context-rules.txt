@@ -103,3 +103,52 @@ god	\bbat\s+god\b
 # until-tight: verified against the raw text of all 20 files -- exactly 1 occurrence, no
 # collision with a vain/exclamatory "hell" sharing a cue anywhere in the corpus.
 hell	\bhell\s+on\s+earth\b
+
+# Stargate: Atlantis (2004) S01-S05 sweep, 2026-08-31 -- corpus-driven from the operator's
+# request over 100 .srt files at C:\Users\Marc\Desktop\Audio\to_edit. Measured (method:
+# extract_subtitle_hits over every cue of all 100 files, through the real
+# scrub.wordlists.load_censor() pipeline): 742 total hits, 663 on the religious-domain tokens
+# (hell x310, god x135, damn x84, "my god" x72, "damn it" x45, damned x15, jesus x1,
+# christ x1), 0 exempted before this pass -- every one of those 663 was reviewed against its
+# cue context for legitimate exemption candidates. The 3 rules below exempt exactly 5 of them
+# (measured by re-running the sweep with and without this block and diffing); the other 658
+# are genuine vain/profane uses and stay censored. NOTE: same as the Stranger Things and
+# Batman sweeps above, this is a one-time audit against operator-provided third-party subtitle
+# files that live OUTSIDE this repo and are not vendored here, so it is not enforceable by a
+# repo-committed regression test. Re-run it by hand if these rules change materially.
+#
+# Reviewed and left deliberately CENSORED (not overlooked): every "oh my God" / "thank God" /
+# "for God's sake" / "God knows" / "God forbid" / "good God" / "God bless that ___", every
+# "what/where/how the hell", "hell of a", "go to hell", "bloody hell", and every "damn" --
+# all vain-use idioms the moderate posture keeps censored by policy.
+
+# "was a god" -- S03E15 "The Game" runs a whole storyline about a pre-industrial culture that
+# worshipped the team through a simulation ("The Oracle was a god to us. / I believed in his
+# teachings," #368; McKay recounting it as "Look, it's like you said, / I was a god." #778).
+# In-world deity reference / setting noun, not blasphemy -- same exemption class as the
+# "bat god" rule above, and the same shape as the shared baseline's deity-epithet rules
+# (`the ___ god`, `god of ___`), which just don't happen to cover the predicate form.
+# Guilty-until-tight: verified against the raw text of all 100 files -- exactly these 2
+# matches, no vain "god" shares a cue with either. Same whole-line-match caveat as every rule
+# in this file applies.
+god	\bwas\s+a\s+god\b
+
+# "when Jesus Christ" -- S05E19 "Vegas" #138, the Rolling Stones' "Sympathy for the Devil"
+# playing on the soundtrack ("I was around / when Jesus Christ / Had his moment of doubt and
+# pain"). A referential, historical mention of the name inside a quoted song lyric, not a vain
+# exclamation -- the shared baseline's §3 quotation category, which covers "Jesus of Nazareth"
+# but not this phrasing. Tight by construction: "when Jesus Christ" is a subordinate clause,
+# never the exclamation form ("Jesus Christ!"). Verified against the raw text of all 100 files
+# -- this is the ONLY jesus/christ occurrence in the entire corpus, so no collision is
+# possible. Two hits (jesus + christ both match the cue).
+jesus	\bwhen\s+jesus\s+christ\b
+christ	\bwhen\s+jesus\s+christ\b
+
+# "hell bent" / "hell-bent" -- S01E17 "Letters From Pegasus" #398 ("AN ALIEN ARMADA OF
+# BIBLICAL PROPORTIONS IS ON ITS WAY, BENT-- / DARE I SAY HELL BENT, / IN KEEPING WITH THE
+# METAPHOR--"). The secular determination idiom ("hell-bent on"), not a vain "hell"
+# exclamation -- same idiom-exemption class as "hellfire" above. McKay is punning on his own
+# biblical metaphor, but the word itself is the idiom, not an oath. Guilty-until-tight:
+# verified against the raw text of all 100 files -- exactly 1 occurrence, no vain "hell"
+# shares the cue. Matches both spacing variants.
+hell	\bhell[\s\-]?bent\b
