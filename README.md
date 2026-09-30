@@ -43,15 +43,58 @@ only affects **`god`/`hell`/`hells`** in this repo; 12 of its 24 rules key on th
 
 ## Setup (Linux CUDA venv)
 
+On native Linux, run these directly. On Windows, run them inside WSL2 (see the WSL2
+subsection below first) - there is no native-Windows GPU path, since Triton DTW word
+timestamps require Linux.
+
 ```bash
+# ffmpeg + ffprobe (system packages, not pip):
+sudo apt update && sudo apt install -y ffmpeg          # Debian/Ubuntu
+# or: sudo dnf install -y ffmpeg / brew install ffmpeg
+
 python3 -m venv ~/movie-scrubber-venv
 source ~/movie-scrubber-venv/bin/activate
 # CUDA torch FIRST (pick the cu* index matching your driver):
 pip install torch --index-url https://download.pytorch.org/whl/cu124
 pip install -e .            # installs deps from pyproject + the `scrub` command
-# verify:
+# verify GPU torch actually landed:
 python -c "import torch, stable_whisper, triton; print(torch.cuda.is_available())"  # True
 ```
+
+If that last line prints `False`, torch fell back to CPU - see Troubleshooting below
+before running anything on real files.
+
+### WSL2 (Windows host)
+
+1. Enable WSL2 and install an Ubuntu distro: `wsl --install -d Ubuntu` (PowerShell,
+   admin). Requires a recent NVIDIA driver on the **Windows** side with WSL support
+   (already the case for any driver from the last few years) - do **not** install a
+   separate Linux NVIDIA driver inside WSL2, it uses the Windows host's driver directly.
+2. Confirm the GPU is visible inside WSL2 before doing anything else:
+   `wsl -d Ubuntu -- nvidia-smi` - if this fails, fix the Windows-side driver/WSL
+   kernel update first; nothing below will work until it succeeds.
+3. Run the setup block above from inside that Ubuntu distro
+   (`wsl -d Ubuntu -- bash -lc '...'`, or open a WSL shell first), not from PowerShell.
+4. Reach repo files under `D:\...` from WSL2 at `/mnt/d/...` (adjust the drive letter to
+   wherever this repo is cloned).
+
+### Troubleshooting
+
+- **`torch.cuda.is_available()` prints `False`, or logs say
+  `FP16 is not supported on CPU`.** Torch installed the CPU build. Fix: `pip uninstall
+  torch` inside the venv, then reinstall with the `--index-url` CUDA line above
+  *before* anything else touches `torch` (a plain `pip install -e .` run first will
+  silently pull in CPU torch as a transitive dependency and it needs to be replaced,
+  not layered on top).
+- **`nvidia-smi` not found, or found but WSL2's copy can't see the GPU.** The Windows
+  host's NVIDIA driver needs updating (WSL2 GPU passthrough support), not a driver
+  install inside WSL2 itself.
+- **First `scrub` run is slow / downloads several GB.** `openai-whisper` fetches each
+  model (`base.en`, `medium.en`, `large-v3-turbo`) to `~/.cache/whisper/` on first use.
+  This is a one-time cost per model, not per file; subsequent runs reuse the cached
+  weights.
+- **`ffmpeg: command not found`.** It's a system package, not a pip dependency - see
+  the `apt install` line above (or your distro's equivalent).
 
 ## Usage
 
